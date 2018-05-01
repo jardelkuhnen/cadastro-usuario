@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { UserService } from './../../providers/user/user.service';
 
 @Component({
   selector: 'page-principal',
@@ -13,7 +15,9 @@ export class PrincipalPage {
   constructor(
     public formBuilder: FormBuilder,
     public navCtrl: NavController, 
-    public navParams: NavParams
+    public navParams: NavParams,
+    public userService: UserService,
+    public alertCtrl: AlertController
   ) {
 
     let emailRegex = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
@@ -26,7 +30,19 @@ export class PrincipalPage {
   }
 
   onSubmit():void {
-    console.log('Form submited');
+    this.userService.create(this.principalForm.value)
+      .then(() => {
+        this.principalForm.reset();
+        this.presentAlert('Usuario cadastrado com sucesso!');     
+      });
   }
 
+  presentAlert(message: string) {
+    let alert = this.alertCtrl.create({
+      title: 'Informação',
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 }

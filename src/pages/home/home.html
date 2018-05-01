@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
+    <ion-title text-center>
       Cadastro de Pessoas
     </ion-title>
   </ion-navbar>
@@ -8,4 +8,10 @@
 
 <ion-content padding>
   <button ion-button block (click)="onCadastro()">Cadastrar Informações</button>
+  <br>
+  <ion-list>
+    <button ion-item *ngFor="let user of users | async" (click)="onViewData(user)">
+      {{ user.name }}
+    </button>
+  </ion-list>
 </ion-content>
