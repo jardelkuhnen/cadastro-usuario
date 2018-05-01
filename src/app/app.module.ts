@@ -9,6 +9,8 @@ import { HomePage } from '../pages/home/home';
 import { PrincipalPage } from './../pages/principal/principal';
 
 import { AngularFireModule, FirebaseAppConfig } from 'angularfire2';
+import { UserService } from './../providers/user/user.service';
+import { HttpModule } from '@angular/http';
 
 const firebaseAppConfig: FirebaseAppConfig = {
   apiKey: "AIzaSyDiGL7nSVouMMqD7ZgqTwW0ZxOyAgyJkew",
@@ -25,6 +27,7 @@ const firebaseAppConfig: FirebaseAppConfig = {
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseAppConfig)
   ],
@@ -37,7 +40,8 @@ const firebaseAppConfig: FirebaseAppConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserService
   ]
 })
 export class AppModule {}
